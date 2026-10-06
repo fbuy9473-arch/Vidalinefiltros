@@ -1,0 +1,6 @@
+{
+  "name": "Vidaline - Sistema de Gestão ERP & CRM",
+  "description": "Sistema integrado de gestão empresarial para a Vidaline: vendas, CRM B2B/B2C, controle de garrafões e vasilhames, estoque e gestão financeira.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
