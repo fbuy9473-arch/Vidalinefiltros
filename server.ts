@@ -312,10 +312,17 @@ api.use((err: unknown, _req: Request, res: Response, _next: NextFunction) => {
 
 app.use('/api', api);
 
-async function start() {
-  try {
+let ready: Promise<void> | null = null;
+export function ensureReady() {
+  return (ready ??= (async () => {
     await initDb();
     await seedAdmin();
+  })().catch(err => { ready = null; throw err; }));
+}
+
+async function start() {
+  try {
+    await ensureReady();
   } catch (err) {
     console.error('[db] Não foi possível ligar/preparar a base de dados:', (err as Error).message);
     process.exit(1);
@@ -335,4 +342,6 @@ async function start() {
   });
 }
 
-start();
+if (!process.env.VERCEL) start();
+
+export default app;
