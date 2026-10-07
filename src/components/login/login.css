@@ -1,0 +1,120 @@
+/* Login Vidaline — imagem de referência como cenário + formulário real por cima. */
+.vlx-root {
+  --vidaline-text: #f1f8ff;
+  --vidaline-muted: #9db6d6;
+  position: relative;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: #020a1d;
+  color: var(--vidaline-text);
+}
+
+/* ---------------------------------------------------------------- desktop: cenário 1768x889 escalado como "cover" */
+.vlx-canvas {
+  position: absolute; left: 50%; top: 50%; width: 1768px; height: 889px;
+  transform-origin: 0 0;
+}
+.vlx-bg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; user-select: none; pointer-events: none; }
+.vlx-cover { /* esconde o formulário desenhado na imagem, mantendo a água, a torneira e o vidro */
+  position: absolute; left: 608px; top: 268px; width: 552px; height: 540px; border-radius: 4px 4px 22px 22px; pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent 72%, rgba(0, 70, 150, 0.55) 100%),
+    linear-gradient(90deg, #0067c0 0%, #02255c 5%, #011a44 14%, #01173d 50%, #011a44 86%, #02255c 95%, #0062b8 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 7%, #000 96%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0, #000 7%, #000 96%, transparent 100%);
+}
+.vlx-form-area { position: absolute; left: 652px; top: 288px; width: 463px; }
+
+/* ---------------------------------------------------------------- mobile / tablet: a mesma cena, com o painel esticado ao conteúdo */
+.vlx-m-root {
+  display: flex; align-items: center; justify-content: center; padding: 12px 0;
+  background: linear-gradient(180deg, #020a1d 0%, #031232 45%, #02265a 100%);
+}
+.vlx-m { width: calc(612px * var(--s)); }
+.vlx-m-top, .vlx-m-bottom { display: block; width: 100%; height: auto; user-select: none; pointer-events: none; }
+.vlx-m-top, .vlx-m-bottom {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+.vlx-m-body {
+  position: relative;
+  margin: -1px calc(18px * var(--s));
+  padding: 6px calc(52px * var(--s) + 12px) 18px;
+  background:
+    var(--m-edge-l) left top / calc(52px * var(--s)) 100% no-repeat,
+    var(--m-edge-r) right top / calc(52px * var(--s)) 100% no-repeat;
+}
+.vlx-m-body::before { /* miolo escuro da água, com topo esbatido na superfície */
+  content: ''; position: absolute; top: 0; bottom: 0; left: calc(52px * var(--s) - 2px); right: calc(52px * var(--s) - 2px); z-index: 0;
+  background: linear-gradient(90deg, #02255c 0%, #011a44 10%, #01173d 50%, #011a44 90%, #02255c 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 36px);
+  mask-image: linear-gradient(180deg, transparent 0, #000 36px);
+}
+.vlx-m-body > * { position: relative; z-index: 1; }
+
+/* ---------------------------------------------------------------- formulário */
+.vlx-logo { display: flex; justify-content: center; margin-bottom: 18px; }
+.vlx-title { font-size: 22px; font-weight: 800; text-align: center; color: #fff; letter-spacing: -0.01em; }
+.vlx-title span { color: #1fb6ff; }
+.vlx-sub { margin: 6px 0 22px; font-size: 13px; line-height: 1.5; text-align: center; color: var(--vidaline-muted); }
+.vlx-form { display: flex; flex-direction: column; gap: 16px; position: relative; }
+
+.vlx-label { display: block; margin-bottom: 7px; font-size: 13px; font-weight: 700; color: #f1f8ff; }
+.vlx-input-wrap {
+  position: relative; display: flex; align-items: center; border-radius: 16px;
+  background: rgba(30, 52, 92, 0.72); border: 1px solid rgba(120, 150, 200, 0.4);
+  transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+}
+.vlx-input-wrap:hover { border-color: rgba(125, 190, 255, 0.65); }
+.vlx-input-wrap:focus-within {
+  border-color: rgba(125, 211, 252, 0.95); background: rgba(24, 56, 108, 0.8);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.22), 0 0 22px rgba(56, 189, 248, 0.35);
+}
+.vlx-input-wrap[data-state='error'] { border-color: rgba(251, 113, 133, 0.9); box-shadow: 0 0 0 3px rgba(251, 113, 133, 0.15); }
+.vlx-input-wrap[data-state='success'] { border-color: rgba(52, 211, 153, 0.65); }
+.vlx-input-icon { position: absolute; left: 14px; width: 18px; height: 18px; color: #9db6d6; pointer-events: none; }
+.vlx-input-wrap:focus-within .vlx-input-icon { color: #7dd3fc; }
+.vlx-input {
+  width: 100%; padding: 14px 46px 14px 44px; background: transparent; border: 0; outline: none;
+  color: #fff; font-size: 14px; border-radius: 16px;
+}
+.vlx-input::placeholder { color: #8ea6c8; }
+.vlx-input:-webkit-autofill { -webkit-text-fill-color: #fff; transition: background-color 9999s; }
+.vlx-trailing { position: absolute; right: 10px; display: flex; align-items: center; }
+.vlx-eye {
+  display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; color: #c3d6ee; cursor: pointer;
+  background: transparent; border: 0; transition: color 0.2s, background 0.2s;
+}
+.vlx-eye:hover { color: #fff; background: rgba(56, 189, 248, 0.16); }
+.vlx-eye:focus-visible, .vlx-btn:focus-visible { outline: 2px solid #7dd3fc; outline-offset: 2px; }
+
+.vlx-error {
+  display: flex; gap: 8px; align-items: flex-start; padding: 10px 13px; border-radius: 12px; font-size: 12.5px; line-height: 1.45;
+  color: #ffd3da; background: rgba(76, 5, 25, 0.8); border: 1px solid rgba(251, 113, 133, 0.5);
+}
+
+.vlx-btn {
+  width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 18px;
+  border: 0; border-radius: 999px; cursor: pointer; color: #fff; font-size: 15px; font-weight: 700;
+  background: linear-gradient(90deg, #0aa8ff 0%, #08b9ee 100%);
+  box-shadow: 0 8px 26px rgba(14, 165, 233, 0.4), 0 1px 0 rgba(255, 255, 255, 0.35) inset;
+  transition: transform 0.2s, filter 0.2s, box-shadow 0.2s;
+}
+.vlx-btn:hover:not(:disabled) { filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 12px 30px rgba(14, 165, 233, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset; }
+.vlx-btn:active:not(:disabled) { transform: translateY(0); }
+.vlx-btn:disabled { cursor: progress; filter: saturate(0.85) brightness(0.92); }
+.vlx-btn .vlx-arrow { transition: transform 0.2s; }
+.vlx-btn:hover:not(:disabled) .vlx-arrow { transform: translateX(4px); }
+
+/* tamanhos "nativos" da imagem (1768x889) */
+.vlx-native .vlx-logo { margin-bottom: 28px; }
+.vlx-native .vlx-logo img { height: 88px; }
+.vlx-native .vlx-title { font-size: 32px; }
+.vlx-native .vlx-sub { font-size: 16px; margin: 8px 0 26px; padding: 0 30px; }
+.vlx-native .vlx-form { gap: 20px; }
+.vlx-native .vlx-label { font-size: 17px; margin-bottom: 8px; }
+.vlx-native .vlx-input { font-size: 16px; padding: 17px 52px 17px 52px; }
+.vlx-native .vlx-input-wrap { border-radius: 20px; }
+.vlx-native .vlx-input-icon { left: 18px; width: 22px; height: 22px; }
+.vlx-native .vlx-btn { font-size: 18px; padding: 18px 20px; }
+.vlx-native .vlx-error { position: absolute; left: 0; right: 0; top: calc(100% + 14px); font-size: 14px; }
