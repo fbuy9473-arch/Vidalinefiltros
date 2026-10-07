@@ -25,7 +25,7 @@ const isLocalDb = /@(localhost|127\.0\.0\.1)[:/]/.test(DATABASE_URL);
 const pool = new pg.Pool({
   connectionString: DATABASE_URL,
   ssl: isLocalDb ? false : { rejectUnauthorized: false },
-  max: 5
+  max: process.env.VERCEL ? 1 : 5
 });
 pool.on('error', err => console.error('[db] erro no pool', err));
 
